@@ -89,7 +89,7 @@ void merge(BOOK *library, int start, int div1, int div2, int end){
         4- Percorre os 2 sub-vetores das extremidades;
         5- Percorre o primeiro sub-vetor;
         6- Percorre o segundo sub-vetor;
-        7- Percorre o terceito sub-vetor.
+        7- Percorre o terceiro sub-vetor.
     */
     
     while(start1 <= div1 && start2 <= div2 && start3 <= end){
