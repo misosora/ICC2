@@ -108,7 +108,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		7- Percorre o terceiro sub-vetor.
 	*/
     
-    while(start1 <= div1 && start2 <= div2 && start3 <= end){
+	while(start1 <= div1 && start2 <= div2 && start3 <= end){
 		if(check){
 			if(strcmp(songs[start1].artistName, songs[start2].artistName) <= 0){
 				aux1[startAux] = (strcmp(songs[start1].artistName, songs[start3].artistName) <= 0) ? (songs[start1++]) : (songs[start3++]);
@@ -125,7 +125,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		startAux++;
 	}
 
-    while(start1 <= div1 && start2 <= div2){
+	while(start1 <= div1 && start2 <= div2){
 		if(check){
 			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start2].artistName) <= 0) ? (songs[start1++]) : (songs[start2++]);
 		}else{
@@ -134,7 +134,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		startAux++;
 	}
 
-    while(start2 <= div2 && start3 <= end){
+	while(start2 <= div2 && start3 <= end){
 		if(check){
 			aux1[startAux] = (strcmp(songs[start2].artistName, songs[start3].artistName) <= 0) ? (songs[start2++]) : (songs[start3++]);
 		}else{
@@ -143,7 +143,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		startAux++;
 	}
 
-    while(start1 <= div1 && start3 <= end){
+	while(start1 <= div1 && start3 <= end){
 		if(check){
 			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start3].artistName) <= 0) ? (songs[start1++]) : (songs[start3++]);
 		}else{
@@ -152,7 +152,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		startAux++;
 	}
 
-    while(start1 <= div1){
+	while(start1 <= div1){
 		if(check){		
 			aux1[startAux] = songs[start1++];
 		}else{
@@ -160,8 +160,8 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		}
 		startAux++;
 	}
-    
-    while(start2 <= div2){
+
+	while(start2 <= div2){
 		if(check){
 			aux1[startAux] = songs[start2++];
 		}else{
@@ -170,7 +170,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		startAux++;
 	}
 
-    while(start3 <= end){
+	while(start3 <= end){
 		if(check){
 			aux1[startAux] = songs[start3++];	
 		}else{
@@ -178,9 +178,9 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		}
 		startAux++;
 	}
-
-    // Copiando o vetor auxiliar (ordenado) no vetor original
-    for(int i = start, j = 0; i <= end; i++, j++){
+	
+	// Copiando o vetor auxiliar (ordenado) no vetor original
+	for(int i = start, j = 0; i <= end; i++, j++){
 		if(check){
 			songs[i] = aux1[j];
 		}else{
