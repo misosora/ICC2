@@ -166,7 +166,7 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 			aux1[startAux] = songs[start2++];
 		}else{
 			aux2[startAux] = artists[start2++];
-        }
+		}
 		startAux++;
 	}
 
