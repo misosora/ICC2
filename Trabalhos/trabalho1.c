@@ -78,8 +78,8 @@ char *readLine(FILE *stream){
 
 // Função merge utilizada pelo Merge Sort para juntar os vetores ordenados
 void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end, int check){
-    // Vetor auxiliar que guardará os valores ordenados
-    SONG *aux1;
+	// Vetor auxiliar que guardará os valores ordenados
+	SONG *aux1;
 	ARTIST *aux2;
 	
 	// O valor de 'check' define se estamos ordenando a struct de músicas (1) ou artistas (0)
@@ -91,22 +91,22 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 	}
     
 	int start1 = start; // Início da primeira parte
-    int start2 = div1 + 1; // Início da segunda parte
-    int start3 = div2 + 1; // Início da terceira parte
-    int startAux = 0; // Posição atual do vetor auxiliar
+	int start2 = div1 + 1; // Início da segunda parte
+	int start3 = div2 + 1; // Início da terceira parte
+	int startAux = 0; // Posição atual do vetor auxiliar
 
-    /*
-        Todos os whiles abaixo são utilizados para encontrar os menores valores
-        e colocá-los nas posições corretas em cada sub-vetor:
-        
-        1- Percorre os 3 sub-vetores;
-        2- Percorre os 2 primeiros sub-vetores;
-        3- Percorre os 2 últimos sub-vetores;
-        4- Percorre os 2 sub-vetores das extremidades;
-        5- Percorre o primeiro sub-vetor;
-        6- Percorre o segundo sub-vetor;
-        7- Percorre o terceiro sub-vetor.
-    */
+	/*
+		Todos os whiles abaixo são utilizados para encontrar os menores valores
+		e colocá-los nas posições corretas em cada sub-vetor:
+
+		1- Percorre os 3 sub-vetores;
+		2- Percorre os 2 primeiros sub-vetores;
+		3- Percorre os 2 últimos sub-vetores;
+		4- Percorre os 2 sub-vetores das extremidades;
+		5- Percorre o primeiro sub-vetor;
+		6- Percorre o segundo sub-vetor;
+		7- Percorre o terceiro sub-vetor.
+	*/
     
     while(start1 <= div1 && start2 <= div2 && start3 <= end){
 		if(check){
@@ -121,101 +121,101 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 			}else{
 				aux2[startAux] = (artists[start2].artistPopularity <= artists[start3].artistPopularity) ? (artists[start2++]) : (artists[start3++]);
 			}
-        }
+		}
 		startAux++;
-    }
+	}
 
     while(start1 <= div1 && start2 <= div2){
-        if(check){
+		if(check){
 			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start2].artistName) <= 0) ? (songs[start1++]) : (songs[start2++]);
 		}else{
 			aux2[startAux] = (artists[start1].artistPopularity <= artists[start2].artistPopularity) ? (artists[start1++]) : (artists[start2++]);
-        }
+		}
 		startAux++;
-    }
+	}
 
     while(start2 <= div2 && start3 <= end){
-        if(check){
+		if(check){
 			aux1[startAux] = (strcmp(songs[start2].artistName, songs[start3].artistName) <= 0) ? (songs[start2++]) : (songs[start3++]);
 		}else{
 			aux2[startAux] = (artists[start2].artistPopularity <= artists[start3].artistPopularity) ? (artists[start2++]) : (artists[start3++]);
-        }
+		}
 		startAux++;
-    }
+	}
 
     while(start1 <= div1 && start3 <= end){
-     	if(check){
+		if(check){
 			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start3].artistName) <= 0) ? (songs[start1++]) : (songs[start3++]);
 		}else{
 	 		aux2[startAux] = (artists[start1].artistPopularity <= artists[start3].artistPopularity) ? (artists[start1++]) : (artists[start3++]);
-        }
+		}
 		startAux++;
-    }
+	}
 
     while(start1 <= div1){
-        if(check){		
+		if(check){		
 			aux1[startAux] = songs[start1++];
 		}else{
 			aux2[startAux] = artists[start1++];
-        }
+		}
 		startAux++;
-    }
+	}
     
     while(start2 <= div2){
-        if(check){
+		if(check){
 			aux1[startAux] = songs[start2++];
 		}else{
 			aux2[startAux] = artists[start2++];
         }
 		startAux++;
-    }
+	}
 
     while(start3 <= end){
 		if(check){
-	   		aux1[startAux] = songs[start3++];	
+			aux1[startAux] = songs[start3++];	
 		}else{
-	   		aux2[startAux] = artists[start3++];
+			aux2[startAux] = artists[start3++];
 		}
 		startAux++;
-    }
+	}
 
     // Copiando o vetor auxiliar (ordenado) no vetor original
     for(int i = start, j = 0; i <= end; i++, j++){
-        if(check){
+		if(check){
 			songs[i] = aux1[j];
 		}else{
 			artists[i] = aux2[j];
 		}
-    }
+	}
 	
 	if(check){
 		free(aux1);
-	}else{	
-    	free(aux2);
+	}else{
+		free(aux2);
 	}
 }
 
 // Função Merge Sort, que utiliza a estratégia de divisão e conquista para ordenar um vetor
 void mergeSort(ARTIST *artists, SONG *songs, int start, int end, int check){
-    if(end <= start) return;
+	if(end <= start) return;
     
-    // Divisões do vetor
-    int div1 = start + (end-start)/3;
-    int div2 = ((end-div1)%2 != 0) ? (div1 + (end-div1)/2 + 1) : (div1 + (end-div1)/2); // Somando 1 se a divisão não for exata
+	// Divisões do vetor
+	int div1 = start + (end-start)/3;
+	int div2 = ((end-div1)%2 != 0) ? (div1 + (end-div1)/2 + 1) : (div1 + (end-div1)/2); // Somando 1 se a divisão não for exata
 
-    // Chamada recursiva do Merge Sort em 3 partes + junção e ordenação das partes do vetor
-    // O valor de 'check' define se estamos ordenando a struct de músicas (1) ou artistas (0)
+	// Chamada recursiva do Merge Sort em 3 partes + junção e ordenação das partes do vetor
+	// O valor de 'check' define se estamos ordenando a struct de músicas (1) ou artistas (0)
 	if(check){
 		mergeSort(artists, songs, start, div1, 1);
-    	mergeSort(artists, songs, div1+1, div2, 1);
-    	mergeSort(artists, songs, div2+1, end, 1);
-    	
+		mergeSort(artists, songs, div1+1, div2, 1);
+		mergeSort(artists, songs, div2+1, end, 1);
+
 		merge(artists, songs, start, div1, div2, end, 1);
 	}else{
 		mergeSort(artists, songs, start, div1, 0);
-    	mergeSort(artists, songs, div1+1, div2, 0);
-    	mergeSort(artists, songs, div2+1, end, 0);
-    	
+		mergeSort(artists, songs, div1+1, div2, 0);
+		mergeSort(artists, songs, div2+1, end, 0);
+
 		merge(artists, songs, start, div1, div2, end, 0);
 	}
 }
@@ -373,5 +373,6 @@ int main(int argc, char *argv[]){
 	free(songs);
 	free(artists);
 	free(fileName);
+	
 	return 0;
 }
