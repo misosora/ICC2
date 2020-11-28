@@ -82,14 +82,6 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 	SONG *aux1;
 	ARTIST *aux2;
 	
-	// O valor de 'check' define se estamos ordenando a struct de músicas (1) ou artistas (0)
-	// em todas as comparações abaixo
-	if(check){
-		aux1 = (SONG *) malloc((end-start+1)*sizeof(SONG));
-	}else{
-		aux2 = (ARTIST *) malloc((end-start+1)*sizeof(ARTIST));
-	}
-    
 	int start1 = start; // Início da primeira parte
 	int start2 = div1 + 1; // Início da segunda parte
 	int start3 = div2 + 1; // Início da terceira parte
@@ -107,92 +99,109 @@ void merge(ARTIST *artists, SONG *songs, int start, int div1, int div2, int end,
 		6- Percorre o segundo sub-vetor;
 		7- Percorre o terceiro sub-vetor.
 	*/
-    
-	while(start1 <= div1 && start2 <= div2 && start3 <= end){
-		if(check){
+	
+	// O valor de 'check' define se estamos ordenando a struct de músicas (1) ou artistas (0)
+	// em todas as comparações abaixo
+	if(check){
+		aux1 = (SONG *) malloc((end-start+1)*sizeof(SONG));
+		
+		while(start1 <= div1 && start2 <= div2 && start3 <= end){
 			if(strcmp(songs[start1].artistName, songs[start2].artistName) <= 0){
 				aux1[startAux] = (strcmp(songs[start1].artistName, songs[start3].artistName) <= 0) ? (songs[start1++]) : (songs[start3++]);
 			}else{
 				aux1[startAux] = (strcmp(songs[start2].artistName, songs[start3].artistName) <= 0) ? (songs[start2++]) : (songs[start3++]);
 			}
-		}else{
+			
+			startAux++;
+		}
+
+		while(start1 <= div1 && start2 <= div2){
+			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start2].artistName) <= 0) ? (songs[start1++]) : (songs[start2++]);
+			startAux++;
+		}
+
+		while(start2 <= div2 && start3 <= end){
+			aux1[startAux] = (strcmp(songs[start2].artistName, songs[start3].artistName) <= 0) ? (songs[start2++]) : (songs[start3++]);
+			startAux++;
+		}
+
+		while(start1 <= div1 && start3 <= end){
+			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start3].artistName) <= 0) ? (songs[start1++]) : (songs[start3++]);
+			startAux++;
+		}
+
+		while(start1 <= div1){
+			aux1[startAux] = songs[start1++];
+			startAux++;
+		}
+
+		while(start2 <= div2){
+			aux1[startAux] = songs[start2++];
+			startAux++;
+		}
+
+		while(start3 <= end){
+			aux1[startAux] = songs[start3++];	
+			startAux++;
+		}
+		
+		// Copiando o vetor auxiliar (ordenado) no vetor original
+		for(int i = start, j = 0; i <= end; i++, j++){
+			songs[i] = aux1[j];
+		}
+
+		free(aux1);	
+	
+	}else{
+		aux2 = (ARTIST *) malloc((end-start+1)*sizeof(ARTIST));
+		
+		while(start1 <= div1 && start2 <= div2 && start3 <= end){
 			if(artists[start1].artistPopularity <= artists[start2].artistPopularity){
 				aux2[startAux] = (artists[start1].artistPopularity <= artists[start3].artistPopularity) ? (artists[start1++]) : (artists[start3++]);
 			}else{
 				aux2[startAux] = (artists[start2].artistPopularity <= artists[start3].artistPopularity) ? (artists[start2++]) : (artists[start3++]);
 			}
+			
+			startAux++;
 		}
-		startAux++;
-	}
 
-	while(start1 <= div1 && start2 <= div2){
-		if(check){
-			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start2].artistName) <= 0) ? (songs[start1++]) : (songs[start2++]);
-		}else{
+		while(start1 <= div1 && start2 <= div2){
 			aux2[startAux] = (artists[start1].artistPopularity <= artists[start2].artistPopularity) ? (artists[start1++]) : (artists[start2++]);
+			startAux++;
 		}
-		startAux++;
-	}
 
-	while(start2 <= div2 && start3 <= end){
-		if(check){
-			aux1[startAux] = (strcmp(songs[start2].artistName, songs[start3].artistName) <= 0) ? (songs[start2++]) : (songs[start3++]);
-		}else{
+		while(start2 <= div2 && start3 <= end){
 			aux2[startAux] = (artists[start2].artistPopularity <= artists[start3].artistPopularity) ? (artists[start2++]) : (artists[start3++]);
+			startAux++;
 		}
-		startAux++;
-	}
 
-	while(start1 <= div1 && start3 <= end){
-		if(check){
-			aux1[startAux] = (strcmp(songs[start1].artistName, songs[start3].artistName) <= 0) ? (songs[start1++]) : (songs[start3++]);
-		}else{
-	 		aux2[startAux] = (artists[start1].artistPopularity <= artists[start3].artistPopularity) ? (artists[start1++]) : (artists[start3++]);
+		while(start1 <= div1 && start3 <= end){
+			aux2[startAux] = (artists[start1].artistPopularity <= artists[start3].artistPopularity) ? (artists[start1++]) : (artists[start3++]);
+			startAux++;
 		}
-		startAux++;
-	}
 
-	while(start1 <= div1){
-		if(check){		
-			aux1[startAux] = songs[start1++];
-		}else{
+		while(start1 <= div1){
 			aux2[startAux] = artists[start1++];
+			startAux++;
 		}
-		startAux++;
-	}
 
-	while(start2 <= div2){
-		if(check){
-			aux1[startAux] = songs[start2++];
-		}else{
+		while(start2 <= div2){
 			aux2[startAux] = artists[start2++];
+			startAux++;
 		}
-		startAux++;
-	}
 
-	while(start3 <= end){
-		if(check){
-			aux1[startAux] = songs[start3++];	
-		}else{
+		while(start3 <= end){
 			aux2[startAux] = artists[start3++];
+			startAux++;
 		}
-		startAux++;
-	}
-	
-	// Copiando o vetor auxiliar (ordenado) no vetor original
-	for(int i = start, j = 0; i <= end; i++, j++){
-		if(check){
-			songs[i] = aux1[j];
-		}else{
+		
+		// Copiando o vetor auxiliar (ordenado) no vetor original
+		for(int i = start, j = 0; i <= end; i++, j++){
 			artists[i] = aux2[j];
 		}
-	}
-	
-	if(check){
-		free(aux1);
-	}else{
-		free(aux2);
-	}
+
+		free(aux2);	
+	}	
 }
 
 // Função Merge Sort, que utiliza a estratégia de divisão e conquista para ordenar um vetor
